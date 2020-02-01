@@ -5,7 +5,7 @@
     "serve": "firebase serve --only functions",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
-    "deploy": "firebase deploy --only functions --project=btlweb-dev",
+    "deploy": "firebase deploy --only functions:api --project=btlweb-dev",
     "logs": "firebase functions:log"
   },
   "engines": {

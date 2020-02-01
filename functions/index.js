@@ -19,7 +19,7 @@ api.use(bodyParser.urlencoded({
 api.use(bodyParser.json());
 // Automatically allow cross-origin requests
 api.use(cors({
-  origin: ['chrome-extension://dmfldfkgdnpkjcmckjgjpmkklgkchjde', 'chrome-extension://daknnihhlokbjjmliaadjiaiejbdblch', 'https://www.facebook.com', 'https://www.messenger.com']
+  origin: ['chrome-extension://dmfldfkgdnpkjcmckjgjpmkklgkchjde', 'chrome-extension://daknnihhlokbjjmliaadjiaiejbdblch', 'facebook.com', 'messenger.com', 'https://www.facebook.com', 'https://www.messenger.com']
 }))
 
 var serviceAccount = require("./key.json");
@@ -49,7 +49,7 @@ api.post('/set_data', async (req, res) => {
   const docRef = iddoc && iddoc !== '' ? firestore.collection(source).doc(iddoc) : firestore.collection(source).doc()
   docRef.set({
     refer: from + ',' + to,
-    current_bg_img: imgUrl,
+    current_bg_img: imgUrl||'',
     history_bg: history,
     username
   }).then(() => {
@@ -202,6 +202,16 @@ api.get('/get_data/:col', async (req, res) => {
   }
 
 })
+
+// api.get('/check-fb', async(req, res)=>{
+//   firestore.collection('messengerBG').get().then(docs=>{
+//     let data = [];
+//     docs.forEach(doc=>{
+//       data.push(doc.data())
+//     })
+//     res.json(data)
+//   })
+// })
 
 
 exports.api = functions.https.onRequest(api)
